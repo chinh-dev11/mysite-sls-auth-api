@@ -1,0 +1,31 @@
+{
+  "name": "mysite-sls-auth-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "home.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chinh-le/mysite-sls-auth-api.git"
+  },
+  "author": "Chinh Le <chinh.dev11@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chinh-le/mysite-sls-auth-api/issues"
+  },
+  "homepage": "https://github.com/chinh-le/mysite-sls-auth-api#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "serverless-bundle": "^1.4.0",
+    "serverless-dotenv-plugin": "^2.4.2",
+    "serverless-offline": "^6.1.5"
+  },
+  "dependencies": {
+    "aws-amplify": "^3.0.10",
+    "node-fetch": "^2.6.0"
+  }
+}
