@@ -5,13 +5,6 @@ import { confAuth } from './conf';
 
 global.fetch = fetch;
 
-/**
- * Required payload:
-    {
-      email: 'xxx@xxx.xxx',
-      code: 'xxx'
-    }
- */
 exports.main = async (event, context) => {
   const isOffline = process.env.IS_LOCAL || /localhost/.test(event.headers.Host);
   const paramProps = {
@@ -27,12 +20,10 @@ exports.main = async (event, context) => {
   confAuth(paramProps.userPoolId, paramProps.userPoolWebClientId);
 
   try {
-    const payload = JSON.parse(event.body);
-    const data = await Auth.confirmSignUp(payload.email, payload.code);
+    const tokens = await Auth.currentSession();
+    console.log('tokens: ', tokens);
 
-    return success({
-      message: data, // SUCCESS
-    });
+    return success(tokens);
   } catch (e) {
     return success({
       code: e.code,

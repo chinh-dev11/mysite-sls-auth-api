@@ -5,6 +5,13 @@ import { confAuth } from './conf';
 
 global.fetch = fetch;
 
+/**
+ * Required payload:
+    {
+      email: 'xxx@xxx.xxx',
+      password: 'xxx'
+    }
+ */
 exports.main = async (event, context) => {
   const isOffline = process.env.IS_LOCAL || /localhost/.test(event.headers.Host);
   const paramProps = {

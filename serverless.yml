@@ -79,32 +79,84 @@ functions:
       - http:
           path: /
           method: get
+          cors: true
   users:
     handler: users.main
     events:
       - http:
-          path: users
+          path: /users
           method: get
-          # cors: true
+          cors: true
+  currentUser:
+    handler: currentUser.main
+    events:
+      - http:
+          path: /currentUser
+          method: get
+          cors: true
+  currentSession:
+    handler: currentSession.main
+    events:
+      - http:
+          path: /currentSession
+          method: get
+          cors: true
+  forgotPasswordSubmit:
+    handler: forgotPasswordSubmit.main
+    events:
+      - http:
+          path: /forgotPasswordSubmit
+          method: post
+          cors: true
+  forgotPassword:
+    handler: forgotPassword.main
+    events:
+      - http:
+          path: /forgotPassword
+          method: post
+          cors: true
+  changePassword:
+    handler: changePassword.main
+    events:
+      - http:
+          path: /changePassword
+          method: post
+          cors: true
+  signout:
+    handler: signout.main
+    events:
+      - http:
+          path: /signout
+          method: post
+          cors: true
   signin:
     handler: signin.main
     events:
       - http:
-          path: signin
+          path: /signin
           method: post
-          # cors: true
+          cors: true
   signupConfirm:
     handler: signupConfirm.main
     events:
       - http:
-          path: signupConfirm
+          path: /signupConfirm
           method: post
+          cors: true
+  signupResend:
+    handler: signupResend.main
+    events:
+      - http:
+          path: /signupResend
+          method: post
+          cors: true
   signup:
     handler: signup.main
     events:
       - http:
-          path: signup
+          path: /signup
           method: post
+          cors: true
 #  - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
@@ -140,6 +192,7 @@ functions:
 
 # you can add CloudFormation resource templates here
 resources:
+  # - ${file(resources/api-gateway-errors.yml)}
   - ${file(resources/cognito-user-pool.yml)}
 #  Resources:
 #    NewResource:

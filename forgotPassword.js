@@ -8,8 +8,7 @@ global.fetch = fetch;
 /**
  * Required payload:
     {
-      email: 'xxx@xxx.xxx',
-      code: 'xxx'
+      email: 'xxx@xxx.xxx'
     }
  */
 exports.main = async (event, context) => {
@@ -28,11 +27,10 @@ exports.main = async (event, context) => {
 
   try {
     const payload = JSON.parse(event.body);
-    const data = await Auth.confirmSignUp(payload.email, payload.code);
+    const data = await Auth.forgotPassword(payload.email);
+    console.log('data: ', data);
 
-    return success({
-      message: data, // SUCCESS
-    });
+    return success(data);
   } catch (e) {
     return success({
       code: e.code,

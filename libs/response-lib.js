@@ -2,6 +2,7 @@ const responseBuilder = (status, body) => ({
   statusCode: status,
   headers: {
     'Access-Control-Allow-Origin': '*',
+    // 'Access-Control-Allow-Origin': 'https://chinhle.ca',
     'Access-Control-Allow-Credentials': true,
   },
   body: JSON.stringify(body),
