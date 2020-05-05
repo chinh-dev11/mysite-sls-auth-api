@@ -25,6 +25,9 @@ plugins:
   - serverless-dotenv-plugin # Load .env as environment variables
   - serverless-offline # to run backend API locally
 
+custom:
+  stage: ${opt:stage, self:provider.stage}
+
 provider:
   name: aws
   runtime: nodejs12.x
@@ -76,7 +79,33 @@ functions:
       - http:
           path: /
           method: get
-#      - websocket: $connect
+  users:
+    handler: users.main
+    events:
+      - http:
+          path: users
+          method: get
+          # cors: true
+  signin:
+    handler: signin.main
+    events:
+      - http:
+          path: signin
+          method: post
+          # cors: true
+  signupConfirm:
+    handler: signupConfirm.main
+    events:
+      - http:
+          path: signupConfirm
+          method: post
+  signup:
+    handler: signup.main
+    events:
+      - http:
+          path: signup
+          method: post
+#  - websocket: $connect
 #      - s3: ${env:BUCKET}
 #      - schedule: rate(10 minutes)
 #      - sns: greeter-topic
