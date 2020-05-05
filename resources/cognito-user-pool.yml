@@ -1,0 +1,37 @@
+Resources:
+  CognitoUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      ## Generate a name based on the stage
+      UserPoolName: mysite-sls-auth-api-user-pool-${self:custom.stage}
+      ## Set email as an alias
+      UsernameAttributes:
+        - email ## telling the User Pool that we want our users to be able to log in with their email as their username
+      AutoVerifiedAttributes:
+        - email
+
+  CognitoUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ## Generate an app client name based on the stage
+      ClientName: mysite-sls-auth-api-user-pool-client-${self:custom.stage}
+      UserPoolId:
+        Ref: CognitoUserPool
+      # https://docs.aws.amazon.com/cognito/latest/developerguide/amazon-cognito-user-pools-authentication-flow.html
+      # [ALLOW_CUSTOM_AUTH, ADMIN_NO_SRP_AUTH, ALLOW_REFRESH_TOKEN_AUTH, ALLOW_USER_PASSWORD_AUTH, ALLOW_USER_SRP_AUTH, CUSTOM_AUTH_FLOW_ONLY, USER_PASSWORD_AUTH, ALLOW_ADMIN_USER_PASSWORD_AUTH]
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_USER_SRP_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+        # - ALLOW_CUSTOM_AUTH // Lambda trigger
+      GenerateSecret: false
+
+## We want CloudFormation to tell us the User Pool Id and the User Pool Client Id that is generated
+## Print out the Id of the User Pool that is created
+Outputs:
+  UserPoolId:
+    Value:
+      Ref: CognitoUserPool
+  UserPoolClientId:
+    Value:
+      Ref: CognitoUserPoolClient
